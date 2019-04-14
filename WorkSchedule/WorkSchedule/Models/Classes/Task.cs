@@ -15,6 +15,7 @@ namespace WorkSchedule.Models.Classes
         List<User> collaborators;
         DateTime start;
         DateTime end;
+        int priority;
 
         public Task() { }
 
@@ -57,6 +58,23 @@ namespace WorkSchedule.Models.Classes
         {
             get { return end; }
             set { end = value; }
+        }
+        public int Priority
+        {
+            get { return priority; }
+            set { priority = value; }
+        }
+
+        public void Delete()
+        {
+            foreach (User item in Collaborators)
+            {
+                item.Collaboarations.Remove(this);
+            }
+            foreach (TaskComment item in comments)
+            {
+                item.Delete();
+            }
         }
     }
 }
