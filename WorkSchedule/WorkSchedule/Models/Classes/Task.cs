@@ -7,18 +7,21 @@ namespace WorkSchedule.Models.Classes
 {
     public class Task
     {
+        int id;
         string title;
         string desription;
-        List<TaskComment> comments;
-        List<TaskMaterial> materials;
-        User owner;
-        List<User> collaborators;
+        int ownerId;
         DateTime start;
         DateTime end;
         int priority;
 
         public Task() { }
 
+        public int ID
+        {
+            get { return id; }
+            set { id = value; }
+        }
         public string Title
         {
             get { return title; }
@@ -28,26 +31,6 @@ namespace WorkSchedule.Models.Classes
         {
             get { return desription; }
             set { desription = value; }
-        }
-        public List<TaskComment> Comments
-        {
-            get { return comments; }
-            set { comments = value; }
-        }
-        public List<TaskMaterial> Materials
-        {
-            get { return materials; }
-            set { materials = value; }
-        }
-        public User Owner
-        {
-            get { return owner; }
-            set { owner = value; }
-        }
-        public List<User> Collaborators
-        {
-            get { return collaborators; }
-            set { collaborators = value; }
         }
         public DateTime Start
         {
@@ -64,17 +47,10 @@ namespace WorkSchedule.Models.Classes
             get { return priority; }
             set { priority = value; }
         }
-
-        public void Delete()
+        public int OwnerID
         {
-            foreach (User item in Collaborators)
-            {
-                item.Collaboarations.Remove(this);
-            }
-            foreach (TaskComment item in comments)
-            {
-                item.Delete();
-            }
+            get { return ownerId; }
+            set { ownerId = value; }
         }
     }
 }

@@ -10,16 +10,18 @@ namespace WorkSchedule.Models.Classes
 
     public class TaskMaterial
     {
+        int id;
         MaterialType type;
         string uri;
+        int taskId;
 
         public TaskMaterial() { }
-        public TaskMaterial(MaterialType type, string uri)
-        {
-            this.type = type;
-            this.uri = uri;
-        }
 
+        public int ID
+        {
+            get { return id; }
+            set { id = value; }
+        }
         public MaterialType Type
         {
             get
@@ -41,6 +43,11 @@ namespace WorkSchedule.Models.Classes
             {
                 uri = value;
             }
+        }
+        public int TaskID
+        {
+            get { return taskId; }
+            set { taskId = value; }
         }
     }
 }

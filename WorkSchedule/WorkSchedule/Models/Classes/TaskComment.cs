@@ -7,18 +7,19 @@ namespace WorkSchedule.Models.Classes
 {
     public class TaskComment
     {
+        int id;
         string text;
-        User author;
+        int authorId;
         DateTime writeTime;
+        int taskId;
 
         public TaskComment() { }
-        public TaskComment(string text, User author, DateTime writeTime)
-        {
-            this.text = text;
-            this.author = author;
-            this.writeTime = writeTime;
-        }
 
+        public int ID
+        {
+            get { return id; }
+            set { id = value; }
+        }
         public string Text
         {
             get
@@ -28,17 +29,6 @@ namespace WorkSchedule.Models.Classes
             set
             {
                 text = value;
-            }
-        }
-        public User Author
-        {
-            get
-            {
-                return author;
-            }
-            set
-            {
-                author = value;
             }
         }
         public DateTime WriteTime
@@ -51,6 +41,16 @@ namespace WorkSchedule.Models.Classes
             {
                 writeTime = value;
             }
+        }
+        public int TaskID
+        {
+            get { return taskId; }
+            set { taskId = value; }
+        }
+        public int AuthorID
+        {
+            get { return authorId; }
+            set { authorId = value; }
         }
     }
 }

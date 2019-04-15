@@ -7,26 +7,15 @@ namespace WorkSchedule.Models.Classes
 {
     public class Group
     {
+        int id;
         string name;
-        List<User> members;
 
         public Group() { }
-        public Group(string name, List<User> members)
-        {
-            this.name = name;
-            this.members = members;
-        }
 
-        public List<User> Members
+        public int ID
         {
-            get
-            {
-                return members;
-            }
-            set
-            {
-                members = value;
-            }
+            get { return id; }
+            set { id = value; }
         }
         public string Name
         {
