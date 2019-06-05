@@ -1,0 +1,38 @@
+﻿@model List<Microsoft.AspNetCore.Identity.IdentityUser>
+@{ 
+
+}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Admin page</h3>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Email
+            </th>
+            <th>
+                ID
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <thead>
+        @foreach(var el in Model)
+        {
+            <tr>
+                <td>
+                    @el.Email
+                </td>
+                <td>
+                    @el.Id
+                </td>
+                <td>
+                    <a asp-controller="Admin" asp-action="Edit" asp-route-id="@el.Id" class="btn btn-primary">Edit</a>
+                </td>
+            </tr>
+        }
+    </thead>
+</table>

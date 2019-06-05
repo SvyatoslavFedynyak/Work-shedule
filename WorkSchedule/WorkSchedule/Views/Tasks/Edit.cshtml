@@ -1,0 +1,126 @@
+﻿@model WorkSchedule.Models.ViewModels.ScheduleView
+@{
+
+}
+<h2>Create Schedule</h2><br />
+<form method="post" asp-controller="Tasks" asp-action="Edit">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label" asp-for="Schedule.From"> </label>
+                <input class="form-control" type="date" asp-for="Schedule.From" />
+                <span asp-validation-for="Schedule.From" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="Schedule.To"></label>
+                <input class="form-control" type="date" asp-for="Schedule.To" />
+                <span asp-validation-for="Schedule.To" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <h3>Task Lines : <button id="addNewLine" class="btn btn-primary" type="button">Add</button></h3>
+    <table id="TaskL" class="table">
+        <thead>
+            <tr>
+                <th>
+                    Status
+                </th>
+                <th>
+                    WorkerType
+                </th>
+                <th>
+                    Worker
+                </th>
+                <th>
+                    From
+                </th>
+                <th>
+                    To
+                </th>
+                <th>
+                    Day
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.TaskLines.Count; i++)
+            {
+                <tr rownum="@i">
+                    <td>
+                        <input type="hidden"  id="TaskLines_@i __.TaskLineStatusID" name="TaskLines[@i].TaskLineStatusID" value="@Model.TaskLines[i].TaskLineStatusID" />
+                        @if (Model.TaskLines[i].TaskLineStatusID == 1)
+                        {
+                            <div style="height:20px;width:20px;background-color:dodgerblue">
+                            </div>
+                        }
+                        else if (Model.TaskLines[i].TaskLineStatusID == 2)
+                        {
+                            <div style="height:20px;width:20px;background-color:red">
+                            </div>
+                        }
+                        else if (Model.TaskLines[i].TaskLineStatusID == 3)
+                        {
+                            <div style="height:20px;width:20px;background-color:green">
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        <select required class="form-control" id="TaskLines_@i __.WorkerTypeID" onchange="TypeChanged($(this),false)" name="TaskLines[@i].WorkerTypeID">
+                            <option></option>
+                            @foreach (var el in Model.WorkerTypesEnumerable)
+                            {
+                                @if (el.WorkerTypeID == Model.TaskLines[i].WorkerTypeID)
+                                {
+                                    <option selected value="@el.WorkerTypeID">@el.WorkerTypeName</option>
+                                }
+                                else
+                                {
+                                    <option value="@el.WorkerTypeID">@el.WorkerTypeName</option>
+                                }
+                            }
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-control" id="TaskLines_@i __.WorkerID" name="TaskLines[@i].WorkerID">
+                            <option></option>
+                        </select>
+                    </td>
+                    <td>
+                        <input class="form-control" type="time" value="@Model.TaskLines[i].From.ToString("HH:mm")" required id="TaskLines_@i __.From" name="TaskLines[@i].From" />
+                    </td>
+                    <td>
+                        <input class="form-control" type="time" value="@Model.TaskLines[i].To.ToString("HH:mm")" required id="TaskLines_@i __.To" name="TaskLines[@i].To" />
+                    </td>
+                    <td>
+                        <input class="form-control" type="date" value="@Model.TaskLines[i].Day.ToString("yyyy-MM-dd")" required id="TaskLines_@i __.Day" name="TaskLines[@i].Day" />
+                        <input class="form-control" type="hidden" value="@Model.TaskLines[i].TaskLineID" required id="TaskLines_@i __.TaskLineID" name="TaskLines[@i].TaskLineID" />
+                    </td>
+                    <td>
+                        <button type="button" name="Delete" onclick="forRemove($(this))" class="close" aria-labe l="Close"><span aria-hidden="true">&times;</span></button>
+                    </td>
+                </tr>
+            }
+            <tr></tr>
+
+        </tbody>
+    </table>
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+    <div class="hidden">
+        <input asp-for="@Model.Schedule.TaskID" />
+        <input asp-for="@Model.Schedule.CreatedBy" />
+        <input asp-for="@Model.Schedule.DateCreated" />
+        <input asp-for="@Model.Schedule.DateModified" />
+        <input asp-for="@Model.Schedule.ModifiedBy" />
+    </div>
+</form>
+@section Scripts {
+    @{
+        <script src="~/js/Schedule/Create.js" counter="@Model.TaskLines.Count" asp-append-version="true" id="ScheduleCreate" SelectedWorkers="@Model.SelectedWorkers" WorkerTypes="@Model.WorkerTypes"></script>
+    }
+}
+

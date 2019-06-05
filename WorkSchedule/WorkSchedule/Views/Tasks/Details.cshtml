@@ -1,0 +1,68 @@
+﻿@model WorkSchedule.Models.ViewModels.DetailsView
+@{
+
+}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Details
+    </div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>
+                From
+            </dt>
+            <dd>
+                @Model.Schedule.From.ToString("dddd, MMMM dd yyyy")
+            </dd>
+            <dt>
+                To
+            </dt>
+            <dd>
+                @Model.Schedule.To.ToString("dddd, MMMM dd yyyy")
+            </dd>
+        </dl>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                WorkerType
+            </th>
+            <th>
+                Worker
+            </th>
+            <th>
+                From
+            </th>
+            <th>
+                To
+            </th>
+            <th>
+                Day
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var el in Model.TaskLines)
+        {
+            <tr>
+                <td>
+                    @Model.WorkerTypes.SingleOrDefault(x=> x.WorkerTypeID == el.WorkerTypeID).WorkerTypeName
+                </td>
+                <td>
+                    @el.WorkerID
+                </td>
+                <td>
+                    @el.From.ToString("t")
+                </td>
+                <td>
+                    @el.To.ToString("t")
+                </td>
+                <td>
+                    @el.Day.ToString("dddd, MMMM dd yyyy")
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
