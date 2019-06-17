@@ -55,7 +55,7 @@ namespace WorkSchedule.Controllers
             }
 
             v.Claims = JsonConvert.SerializeObject(v.ClaimsEnumerable, new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects }).Replace("$", "");
-            v.Roles = JsonConvert.SerializeObject(v.Roles, new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects }).Replace("$", "");
+            v.Roles = JsonConvert.SerializeObject(v.RolesEnumerable, new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects }).Replace("$", "");
             var managers = await _userManager.GetUsersInRoleAsync("Manager");
             v.ManagersEnumerable = managers.Select(x => x.Email).ToList() ?? new List<string>();
             v.Managers = JsonConvert.SerializeObject(v.ManagersEnumerable, new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects }).Replace("$", "");
