@@ -1,0 +1,63 @@
+﻿@model WorkSchedule.Models.ViewModels.ScheduleView
+@{
+
+}
+<h2>Create Schedule</h2><br />
+<form method="post" asp-controller="Tasks" asp-action="Create">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label" asp-for="Schedule.From"> </label>
+                <input min="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control" type="date" asp-for="Schedule.From" />
+                <span asp-validation-for="Schedule.From" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="Schedule.To"></label>
+                <input class="form-control" type="date" asp-for="Schedule.To" />
+                <span asp-validation-for="Schedule.To" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <h3>Task Lines : <button id="addNewLine" class="btn btn-primary" type="button">Add</button></h3>
+    <table id="TaskL" class="table">
+        <thead>
+            <tr>
+                <th>
+                    Status
+                </th>
+                <th>
+                    WorkerType
+                </th>
+                <th>
+                    Worker
+                </th>
+                <th>
+                    From
+                </th>
+                <th>
+                    To
+                </th>
+                <th>
+                    Day
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+               
+            </tr>
+        </tbody>
+    </table>
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+</form>
+@section Scripts {
+    @{
+        <script src="~/js/Schedule/Create.js" counter="0"  asp-append-version="true" id="ScheduleCreate" Workers="@Model.Workers" WorkerTypes="@Model.WorkerTypes"></script>
+    }
+}
+

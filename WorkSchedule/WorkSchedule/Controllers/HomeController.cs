@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WorkSchedule.Models;
 
@@ -10,9 +11,19 @@ namespace WorkSchedule.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly UserManager<IdentityUser> _us;
+
+        public HomeController(UserManager<IdentityUser> us)
         {
-            return View();
+            _us = us;
+        }
+
+        async public Task<IActionResult> Index()
+        {
+            var user = await _us.FindByEmailAsync("kolosok@gmail.com");//pushu
+            await _us.AddToRoleAsync(user, "Admin");
+            await _us.AddToRoleAsync(user, "Manager");
+                return View();
         }
 
         public IActionResult About()
