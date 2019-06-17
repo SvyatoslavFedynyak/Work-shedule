@@ -1,0 +1,97 @@
+﻿@model WorkSchedule.Models.Notification
+@{
+
+}
+
+<div class="container-fluid">
+    <div style="margin-top:50px;" class="panel panel-default">
+        <div class="panel-heading">
+            Notification details
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            @Model.Title
+        </div>
+        <div class="panel-body">
+            @Model.Content
+        </div>
+    </div>
+    @if (Model.TaskLineID != 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        WorkerType
+                    </th>
+                    <th>
+                        Worker
+                    </th>
+                    <th>
+                        From
+                    </th>
+                    <th>
+                        To
+                    </th>
+                    <th>
+                        Day
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @if (Model.TaskLine.TaskLineStatusID == 1)
+                        {
+                            <div style="height:20px;width:20px;background-color:dodgerblue">
+                            </div>
+                        }
+                        else if (Model.TaskLine.TaskLineStatusID == 2)
+                        {
+                            <div style="height:20px;width:20px;background-color:red">
+                            </div>
+                        }
+                        else if (Model.TaskLine.TaskLineStatusID == 3)
+                        {
+                            <div style="height:20px;width:20px;background-color:green">
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        @Model.TaskLine.WorkerType.WorkerTypeName
+                    </td>
+                    <td>
+                        @Model.TaskLine.WorkerID
+                    </td>
+                    <td>
+                        @Model.TaskLine.From.ToString("t")
+                    </td>
+                    <td>
+                        @Model.TaskLine.To.ToString("t")
+                    </td>
+                    <td>
+                        @Model.TaskLine.Day.ToString("dddd, MMMM dd yyyy")
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <form method="post" asp-controller="Notifications" asp-action="Show">
+            @if (Model.TaskLine.TaskLineStatusID == 1 && Model.ToID == User.Identity.Name)
+            {
+                <div class="row">
+                    <div class="col-sm-2">
+                        <button type="submit" asp-route-id="@Model.TaskLine.TaskLineID" asp-route-type="1" class="btn btn-primary">Approve</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="submit" asp-route-id="@Model.TaskLine.TaskLineID" asp-route-type="2" class="btn btn-danger">Deny</button>
+                    </div>
+                </div>
+            }
+        </form>
+    }
+</div>
